@@ -1,16 +1,42 @@
-// Modern Portfolio JavaScript
+/* ===================================
+   MODERN PORTFOLIO JAVASCRIPT
+   Author: Sahirullah
+   Email: sahirullah313@gmail.com
+=================================== */
 
-// Custom Cursor
+// ===================================
+// PAGE LOADER
+// ===================================
+window.addEventListener('load', () => {
+    const loader = document.querySelector('.page-loader');
+    
+    // Hide loader after 2 seconds with smooth animation
+    setTimeout(() => {
+        loader.classList.add('hidden');
+        
+        // Remove loader from DOM after animation completes
+        setTimeout(() => {
+            loader.remove();
+        }, 800);
+    }, 2000);
+});
+
+// ===================================
+// CUSTOM CURSOR
+// ===================================
 const cursorDot = document.querySelector('[data-cursor-dot]');
 const cursorOutline = document.querySelector('[data-cursor-outline]');
 
+// Update cursor position on mouse move
 window.addEventListener('mousemove', (e) => {
     const posX = e.clientX;
     const posY = e.clientY;
     
+    // Update cursor dot position
     cursorDot.style.left = `${posX}px`;
     cursorDot.style.top = `${posY}px`;
     
+    // Update cursor outline with smooth animation
     cursorOutline.style.left = `${posX}px`;
     cursorOutline.style.top = `${posY}px`;
     
@@ -20,7 +46,9 @@ window.addEventListener('mousemove', (e) => {
     }, { duration: 500, fill: "forwards" });
 });
 
-// Navigation
+// ===================================
+// NAVIGATION
+// ===================================
 const navbar = document.querySelector('.navbar');
 const navToggle = document.querySelector('.nav-toggle');
 const navMenu = document.querySelector('.nav-menu');
@@ -48,7 +76,9 @@ document.querySelectorAll('.nav-link').forEach(link => {
     });
 });
 
-// Smooth scrolling for navigation links
+// ===================================
+// SMOOTH SCROLLING
+// ===================================
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function (e) {
         e.preventDefault();
@@ -62,10 +92,13 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     });
 });
 
-// Skills Animation
+// ===================================
+// SKILLS ANIMATION
+// ===================================
 const skillBars = document.querySelectorAll('.skill-progress');
 const skillsSection = document.querySelector('.about');
 
+// Animate skill bars when section comes into view
 const animateSkills = () => {
     skillBars.forEach(bar => {
         const width = bar.getAttribute('data-width');
@@ -87,11 +120,14 @@ if (skillsSection) {
     skillsObserver.observe(skillsSection);
 }
 
-// Parallax effect for hero shapes
+// ===================================
+// PARALLAX EFFECTS
+// ===================================
 window.addEventListener('scroll', () => {
     const scrolled = window.pageYOffset;
     const shapes = document.querySelectorAll('[class^="shape-"]');
     
+    // Apply parallax effect to floating shapes
     shapes.forEach((shape, index) => {
         const speed = 0.5 + (index * 0.1);
         const yPos = -(scrolled * speed);
@@ -99,17 +135,18 @@ window.addEventListener('scroll', () => {
     });
 });
 
-// Form handling
+// ===================================
+// CONTACT FORM HANDLING
+// ===================================
 const contactForm = document.querySelector('.form');
 if (contactForm) {
     contactForm.addEventListener('submit', (e) => {
         e.preventDefault();
         
         // Get form data
-        const formData = new FormData(contactForm);
-        const name = formData.get('name') || contactForm.querySelector('input[type="text"]').value;
-        const email = formData.get('email') || contactForm.querySelector('input[type="email"]').value;
-        const message = formData.get('message') || contactForm.querySelector('textarea').value;
+        const name = contactForm.querySelector('input[type="text"]').value;
+        const email = contactForm.querySelector('input[type="email"]').value;
+        const message = contactForm.querySelector('textarea').value;
         
         // Simple validation
         if (!name || !email || !message) {
@@ -133,7 +170,9 @@ if (contactForm) {
     });
 }
 
-// Hover effects for interactive elements
+// ===================================
+// INTERACTIVE HOVER EFFECTS
+// ===================================
 document.querySelectorAll('.btn, .work-item, .contact-item').forEach(element => {
     element.addEventListener('mouseenter', () => {
         cursorOutline.style.transform = 'scale(1.5)';
@@ -146,7 +185,9 @@ document.querySelectorAll('.btn, .work-item, .contact-item').forEach(element => 
     });
 });
 
-// Text reveal animation
+// ===================================
+// TEXT REVEAL ANIMATION
+// ===================================
 const revealText = (entries, observer) => {
     entries.forEach(entry => {
         if (entry.isIntersecting) {
@@ -169,8 +210,11 @@ document.querySelectorAll('.section-title, .hero-title, .about-description').for
     textObserver.observe(el);
 });
 
-// Initialize AOS (Animate On Scroll)
+// ===================================
+// INITIALIZE ON DOM CONTENT LOADED
+// ===================================
 document.addEventListener('DOMContentLoaded', function() {
+    // Initialize AOS (Animate On Scroll) if available
     if (typeof AOS !== 'undefined') {
         AOS.init({
             duration: 1000,
@@ -180,7 +224,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
     
-    // Add loading animation
+    // Add smooth page load animation
     document.body.style.opacity = '0';
     document.body.style.transition = 'opacity 0.5s ease';
     
@@ -189,7 +233,9 @@ document.addEventListener('DOMContentLoaded', function() {
     }, 100);
 });
 
-// Performance optimization: Throttle scroll events
+// ===================================
+// PERFORMANCE OPTIMIZATION
+// ===================================
 let ticking = false;
 
 function updateScrollEffects() {
@@ -220,14 +266,19 @@ function requestTick() {
     }
 }
 
+// Optimized scroll listener
 window.addEventListener('scroll', requestTick);
 
-// Add smooth page transitions
+// ===================================
+// PAGE TRANSITIONS
+// ===================================
 window.addEventListener('beforeunload', () => {
     document.body.style.opacity = '0';
 });
 
-// Easter egg: Konami code
+// ===================================
+// EASTER EGG - KONAMI CODE
+// ===================================
 let konamiCode = [];
 const konamiSequence = [
     'ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown',
@@ -243,7 +294,7 @@ document.addEventListener('keydown', (e) => {
     }
     
     if (konamiCode.join(',') === konamiSequence.join(',')) {
-        // Easter egg activated
+        // Easter egg activated - fun color change
         document.body.style.filter = 'hue-rotate(180deg)';
         setTimeout(() => {
             document.body.style.filter = 'none';
